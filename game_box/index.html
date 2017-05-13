@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>贪玩游戏盒子</title>
+<meta name="keywords" content="传奇官网">
+<meta name="description" content="传奇官网">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="renderer" content="webkit">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="address=no">
+<meta name="author" content="zhouyunlong">
+<meta name="copyright" content="贪玩游戏">
+<style>
+body,html{margin:0;padding:0;overflow:hidden;-webkit-tap-highlight-color:transparent;}
+body{font-family:Microsoft YaHei; font-size:14px; color:#fff;}
+a,a:visited{text-decoration: none; color: #fff;}
+ul,li{margin: 0;padding: 0;list-style: none;}
+@-webkit-keyframes route{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg)}}
+@-moz-keyframes route{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes route{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg)}}
+#superContainer{height:100%;position:relative;-ms-touch-action:none;touch-action:none}
+.fp-section{position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.fp-slide{float:left}
+.fp-slide,.fp-slidesContainer{height:100%;display:block}
+.fp-slides{z-index:1;height:100%;overflow:hidden;position:relative;-webkit-transition:all .3s ease-out;transition:all .3s ease-out}
+.fp-section.fp-table,.fp-slide.fp-table{display:table;table-layout:fixed;width:100%}
+.fp-tableCell{display:table-cell;vertical-align:middle;width:100%;height:100%}
+.fp-slidesContainer{float:left;position:relative}
+.fp-controlArrow{position:absolute;z-index:4;top:50%;cursor:pointer;width:0;height:0;border-style:solid;margin-top:-38px}
+.fp-controlArrow.fp-prev{left:15px;width:0;border-width:38.5px 34px 38.5px 0;border-color:transparent #fff transparent transparent}
+.fp-controlArrow.fp-next{right:15px;border-width:38.5px 0 38.5px 34px;border-color:transparent transparent transparent #fff}
+.fp-scrollable{overflow:scroll}
+.fp-notransition{-webkit-transition:none!important;transition:none!important}
+#fp-nav{position:fixed;z-index:100;margin-top:-32px;top:50%;opacity:1}
+#fp-nav.right{right:17px}
+#fp-nav.left{left:17px}
+.fp-slidesNav{position:absolute;z-index:4;left:50%;opacity:1}
+.fp-slidesNav.bottom{bottom:17px}
+.fp-slidesNav.top{top:17px}
+#fp-nav ul,.fp-slidesNav ul{margin:0;padding:0}
+#fp-nav ul li,.fp-slidesNav ul li{display:block;width:14px;height:13px;margin:7px;position:relative}
+.fp-slidesNav ul li{display:inline-block}
+#fp-nav ul li a,.fp-slidesNav ul li a{display:block;position:relative;z-index:1;width:100%;height:100%;cursor:pointer;text-decoration:none}
+#fp-nav ul li a.active span,.fp-slidesNav ul li a.active span{background:#333}
+#fp-nav ul li a span,.fp-slidesNav ul li a span{top:2px;left:2px;width:8px;height:8px;border:1px solid #000;background:rgba(0,0,0,0);border-radius:50%;position:absolute;z-index:1}
+#fp-nav ul li .fp-tooltip{position:absolute;top:-2px;color:#fff;font-size:14px;font-family:arial,helvetica,sans-serif;white-space:nowrap;max-width:220px;overflow:hidden;display:block;opacity:0;width:0}
+#fp-nav ul li:hover .fp-tooltip{-webkit-transition:opacity .2s ease-in;transition:opacity .2s ease-in;width:auto;opacity:1}
+#fp-nav ul li .fp-tooltip.right{right:20px}
+#fp-nav ul li .fp-tooltip.left{left:20px}
+.hgroup{-webkit-transform:scale(.5,.5);transform:scale(.5,.5);transition:all 1s;opacity:0}
+.hgroup2{-webkit-transform:scale(.1,.1);transform:scale(.1,.1);transition:all 1s;opacity:0}
+.active .hgroup,.active .hgroup2{opacity:1;-webkit-transform:scale(1,1);transform:scale(1,1);transition-delay:.7s}
+.top{width: 1000px; position: fixed; _position: absolute; top: 0; left: 50%;  _top: expression(documentElement.scrollTop + 340 +'px'); margin-left: -500px; z-index: 10; }
+.nav{width: 100%; position: fixed; top: 0;  _top: expression(documentElement.scrollTop + 340 +'px'); height: 70px; background: rgba(0,0,0,.15); z-index: 10;}
+.nav_area{max-width: 1230px; margin: 0 auto;}
+.p1{background: url('images/p1.jpg') no-repeat center top;}
+.p2{background:#64c2f2;background:-moz-linear-gradient(top,#4eb1eb,#83dafc);background:-webkit-gradient(linear,0 0,0 100%,from(#4eb1eb),to(#83dafc));background-image:-webkit-gradient(linear,left bottom,left top,color-start(0,#4eb1eb),color-stop(1,#83dafc))}
+.p3{background:#7d66f3;background:-moz-linear-gradient(top,#6d4eea,#9183fe);background:-webkit-gradient(linear,0 0,0 100%,from(#6d4eea),to(#9183fe));background-image:-webkit-gradient(linear,left bottom,left top,color-start(0,#6d4eea),color-stop(1,#9183fe))}
+.p4{background:#f28765;background:-moz-linear-gradient(top,#eb6f4e,#fca583);background:-webkit-gradient(linear,0 0,0 100%,from(#eb6f4e),to(#fca583));background-image:-webkit-gradient(linear,left bottom,left top,color-start(0,#eb6f4e),color-stop(1,#fca583))}
+.p5{background:#f28765;background:-moz-linear-gradient(top,#eb6f4e,#fca583);background:-webkit-gradient(linear,0 0,0 100%,from(#eb6f4e),to(#fca583));background-image:-webkit-gradient(linear,left bottom,left top,color-start(0,#eb6f4e),color-stop(1,#fca583))}
+.p5{background: url('images/p5.jpg') no-repeat center bottom;}
+.logo{background: url('images/logo.png') no-repeat;display: block; float: left; width: 204px; height: 52px; overflow: hidden; text-indent: -999em; margin-top: 9px;}
+.links{float: right;margin-top: 25px;height: 16px;}
+.links li{float: left; position: relative;}
+.links .b::after{content: ""; width: 1px; height: 10px; background: rgba(255,255,255,.2); position: absolute; left: 0; top: 50%; margin-top: -5px;}
+.links li a{display: block; padding: 0 14px;}
+#menu{position: absolute; right: 100px; top: 50%; width: 95px; height: 260px; margin-top: -130px;}
+#menu li a{display: block; height: 50px; position: relative; padding-right: 25px; text-align: right; font-size: 16px;}
+#menu li a::after{content: ""; position: absolute; top: 17px; right: 8px; bottom: 0; width: 1px; background: rgba(255,255,255,.2);}
+#menu li:last-child a::after{width: 0;}
+#menu li a i{position: absolute; top: 0; right: 0; width: 16px; height: 16px; border: 1px solid #fff; border-radius: 50%;}
+#menu li span,#menu li i{opacity:.5;}
+#menu li.active span,#menu li.active i{opacity:1;}
+#menu li .home_icon i{border: none;}
+#menu li .home_icon i img{display: block; width: 100%; margin: 4px 0 0 -1px;}
+.down{display: block; opacity:0; z-index: 1000; transition: all 1s; width: 303px; height: 92px; background: url('images/down.png') no-repeat; overflow: hidden; text-indent: -999em; position: absolute; left: 50%; bottom: 0; margin-left: -151px;}
+.active .down{opacity: 1; transition-delay: 1.6s; bottom:5%;}
+.box{width: 459px; height: 558px; position: absolute; left:50%; top:50%; margin:-500px 0 0 -229px; background: url('images/box.png') no-repeat; opacity: 0;  transition: all 1s;}
+.active .box{opacity: 1; transition-delay: 0.4s; margin:-300px 0 0 -229px;}
+.yuan{width: 214px; height: 250px; position: absolute; left: 50%; top: 50%; z-index: 100;}
+.active .yuan{transition-delay: 1s;}
+.y1{margin: -80px 0 0 -460px; background: url('images/y1.png') no-repeat;}
+.y2{margin: 157px 0 0 -116px; background: url('images/y2.png') no-repeat;}
+.y3{margin: -80px 0 0 230px; background: url('images/y3.png') no-repeat;}
+.round{width: 747px; height: 744px; background: url('images/g2_d.png') no-repeat; position: absolute; left: 50%; top: 50%; margin: -300px 0 0 -373px; transition: all 3s; opacity:0; transform:rotate(0);-moz-transform:rotate(0);-webkit-transform:rotate(0);}
+.active .round{opacity: 1; transition-delay: 0.1s; transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);}
+.t1{width: 304px; height: 86px; background: url('images/g2_c.png') no-repeat; position: absolute; left: 50%; top: 100px; margin-left: -200px;}
+.game{width: 685px; height: 335px; background: url('images/g2_a.png') no-repeat; position: absolute; left: 50%; top: 400px; margin-left: -390px;}
+.active .game{transition-delay: 1s; top: 225px;}
+.g_box{width: 304px; height: 179px; background: url('images/g2_b.png') no-repeat; position: absolute; left: 50%; top:540px; margin-left: -190px;}
+.active .g_box{transition-delay: 0.7s;}
+.t2{width: 642px; height: 87px; background: url('images/g3_b.png') no-repeat; position: absolute; left: 50%; top: 100px; margin-left: -321px;}
+.p3_bg{width: 690px; height: 642px; background: url('images/g3_a.png') no-repeat; position: absolute; left: 50%; top: 50%; margin: -270px 0 0 -345px;}
+.user_id,.gifts{width: 360px; height:420px; background: url('images/g3_c.png') no-repeat; position: absolute; left: 50%; top: 50%; margin: -260px 0 0 -160px; transition: all 3s; opacity:0;}
+.active .user_id{transition-delay: 0.8s; margin: -160px 0 0 -160px; opacity:1;}
+.t3{width: 491px; height: 87px; background: url('images/g4_a.png') no-repeat; position: absolute; left: 50%; top: 100px; margin-left: -245px;}
+.round2{width: 800px; height: 800px; background: url('images/g4_b.png') no-repeat; position: absolute; left: 50%; top: 50%; margin: -340px 0 0 -400px; -webkit-animation: route 80s infinite linear; animation: route 80s infinite linear;}
+.pack1,.pack2{width: 272px; height: 318px; background: url('images/g4_c.png') no-repeat; position: absolute; left: 50%; top: 50%; margin-top: -40px;}
+.pack2{width:186px; background: url('images/g4_e.png') no-repeat;}
+.pack1{margin-left: -2000px;}
+.pack2{margin-left: 2000px;}
+.active .pack1{transition-delay: 1s; margin-left: -400px;}
+.active .pack2{transition-delay: 1s; margin-left: 160px;}
+.gifts{background: url('images/g4_d.png') no-repeat;}
+.active .gifts{transition-delay: 1.2s; margin: -130px 0 0 -160px; opacity:1;}
+.d2{background: url('images/down2.png') no-repeat;}
+.active .d2{bottom: 20%}
+.p5_a,.p5_b,.p5_c{width: 458px; height: 324px; position: absolute; left: 50%; top: 256px;}
+.p5_a{background: url('images/g5_a.png') no-repeat; margin-left: -2000px;}
+.active .p5_a{margin-left: -421px;}
+.p5_b{background: url('images/g5_a.jpg') no-repeat; margin-left: -229px; z-index: 10}
+.p5_c{background: url('images/g5_c.png') no-repeat; margin-left: 2000px;}
+.active .p5_c{margin-left: -30px;}
+</style>
+<script type="text/javascript" src="http://image.tanwan.com/jsCommon/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $( '#fullpage' ).fullpage({
+        anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
+        menu: '#menu',
+        afterLoad: function( anchorLink, index ) {
+            console.log(index)
+        }
+    });
+});
+</script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<div style="position:absoulute;left:0;top:0;width:100%;height:50px;background:rgb(255,255,233);color:rgb(30,84,148);border-bottom:1px solid rgb(230,230,198);text-align:center;line-height:50px;font-size:12px;">您使用的浏览器版本过低，可能会影响到您浏览本网页，建议您升级您的浏览器。</div>
+<![endif]-->
+<div class="nav">
+    <div class="nav_area">
+        <a class="logo" href="http://www.tanwan.com/" target="_blank">贪玩游戏盒子</a>
+        <ul class="links">
+            <li><a href="#" target="_blank">贪玩游戏</a></li>
+            <li class="b"><a href="#" target="_blank">游戏大厅</a></li>
+            <li class="b"><a href="#" target="_blank">在线客服</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="fullpage">
+    <ul id="menu">
+        <li class="active" data-menuanchor="page1"><a class="home_icon" href="#page1"><span>首页</span><i><img src="images/home.png" alt=""></i></a></li>
+        <li data-menuanchor="page2"><a href="#page2"><span>精品汇聚</span><i></i></a></li>
+        <li data-menuanchor="page3"><a href="#page3"><span>小号多开</span><i></i></a></li>
+        <li data-menuanchor="page4"><a href="#page4"><span>礼包</span><i></i></a></li>
+        <li data-menuanchor="page5"><a href="#page5"><span>体验</span><i></i></a></li>
+    </ul>
+
+    <div class="section p1">
+        <div class="box"></div>
+        <div class="yuan hgroup y1"></div>
+        <div class="yuan hgroup y2"></div>
+        <div class="yuan hgroup y3"></div>
+        <a class="down" href="#">立即下载</a>
+    </div>
+    <div class="section p2">
+        <div class="t1 hgroup"></div>
+        <div class="round"></div>
+        <div class="hgroup2 game"></div>
+        <div class="hgroup2 g_box"></div>
+    </div>
+    <div class="section p3">
+        <div class="t2 hgroup"></div>
+        <div class="p3_bg hgroup2"></div>
+        <div class="user_id"></div>
+    </div>
+    <div class="section p4">
+        <div class="t3 hgroup"></div>
+        <div class="round2"></div>
+        <div class="pack1 hgroup2"></div>
+        <div class="pack2 hgroup2"></div>
+        <div class="gifts"></div>
+    </div>
+    <div class="section p5">
+        <div class="p5_a hgroup"></div>
+        <div class="p5_b hgroup2"></div>
+        <div class="p5_c hgroup"></div>
+        <a class="down d2" href="#">立即下载</a>
+    </div>
+</div>
+</body>
+</html>
